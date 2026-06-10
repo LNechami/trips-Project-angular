@@ -1,0 +1,42 @@
+<div class="login-wrapper">
+    <div class="login-card">
+        <h2>Connecting to the travel system</h2>
+
+        <form [formGroup]="regiserForm" (ngSubmit)="onSubmitForm()">
+
+            <div class="form-group">
+                <label for="username">User name: </label>
+                <input id="username" type="text" formControlName="username" placeholder="Enter username" />
+
+                @if (username.invalid && username.touched) {
+                <div class="error-message">Username field is required.</div>
+                }
+            </div>
+
+            <div formGroupName="credentials">
+
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input id="password" type="password" formControlName="password">
+                    @if (credentialsGroup.get('password')?.invalid && credentialsGroup.get('password')?.touched){
+                    <div class="error-message">Password field is required.</div>
+                    }
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input id="confirmPassword" type="password" formControlName="confirmPassword">
+                </div>
+
+                @if (credentialsGroup.hasError('mismatch') && credentialsGroup.get('confirmPassword')?.touched &&
+                credentialsGroup.get('password')?.valid) {
+                <div class="error-message">Passwords do not match.</div>
+                }
+
+            </div>
+
+            <button type="submit" [disabled]="regiserForm.invalid">Connect</button>
+
+        </form>
+    </div>
+</div>
